@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>墨学 — Chinese Flashcards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Noto+Serif+SC:wght@400;600;700;900&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=7">
+</head>
+<body>
+
+<!-- Mobile hamburger -->
+<button class="mobile-toggle" id="menuToggle" aria-label="Toggle sidebar">
+  <span></span><span></span><span></span>
+</button>
+
+<!-- Overlay for mobile sidebar -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="app-brand">
+      <span class="brand-seal">墨</span>
+      <div class="brand-text">
+        <h1>墨学</h1>
+        <p>Mò Xué · Ink Learning</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-progress">
+    <div class="progress-label">
+      <span>Overall Progress</span>
+      <span id="progressCount">0 / 660</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+    </div>
+    <div class="progress-stats">
+      <div class="stat">
+        <span class="stat-value" id="statDays">0</span>
+        <span class="stat-label">days</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" id="statBatches">0</span>
+        <span class="stat-label">batches</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" id="statLevel">1</span>
+        <span class="stat-label">level</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-divider"></div>
+
+  <!-- Tone Reference Panel -->
+  <div class="tone-ref-toggle" id="toneRefToggle">
+    <span class="tone-ref-icon">声</span>
+    <span>Pinyin & Tone Guide</span>
+    <span class="section-toggle" id="toneRefArrow">›</span>
+  </div>
+  <div class="tone-ref-panel" id="toneRefPanel">
+    <div class="tone-ref-section">
+      <div class="tone-ref-title">The Four Tones</div>
+      <div class="tone-chart">
+        <div class="tone-row">
+          <span class="tone-num t1">1st</span>
+          <span class="tone-desc">High flat</span>
+          <span class="tone-example"><span class="py-t1">mā</span> 妈 mother</span>
+          <svg class="tone-contour" viewBox="0 0 40 20"><path d="M4,5 L36,5" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="tone-row">
+          <span class="tone-num t2">2nd</span>
+          <span class="tone-desc">Rising</span>
+          <span class="tone-example"><span class="py-t2">má</span> 麻 hemp</span>
+          <svg class="tone-contour" viewBox="0 0 40 20"><path d="M4,16 L36,4" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="tone-row">
+          <span class="tone-num t3">3rd</span>
+          <span class="tone-desc">Dip &amp; rise</span>
+          <span class="tone-example"><span class="py-t3">mǎ</span> 马 horse</span>
+          <svg class="tone-contour" viewBox="0 0 40 20"><path d="M4,8 Q20,20 36,6" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="tone-row">
+          <span class="tone-num t4">4th</span>
+          <span class="tone-desc">Falling</span>
+          <span class="tone-example"><span class="py-t4">mà</span> 骂 scold</span>
+          <svg class="tone-contour" viewBox="0 0 40 20"><path d="M4,4 L36,16" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="tone-row">
+          <span class="tone-num t5">0th</span>
+          <span class="tone-desc">Neutral / light</span>
+          <span class="tone-example"><span class="py-t5">ma</span> 吗 (question)</span>
+          <svg class="tone-contour" viewBox="0 0 40 20"><path d="M4,10 L36,12" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="3 3"/></svg>
+        </div>
+      </div>
+    </div>
+    <div class="tone-ref-section">
+      <div class="tone-ref-title">Tone Sandhi Rules</div>
+      <div class="tone-rule">
+        <span class="py-t3">3rd</span> + <span class="py-t3">3rd</span> → <span class="py-t2">2nd</span> + <span class="py-t3">3rd</span>
+        <div class="tone-rule-example">你好 nǐ hǎo → ní hǎo</div>
+      </div>
+      <div class="tone-rule">
+        <span class="py-t1">一 yī</span> before <span class="py-t4">4th</span> → <span class="py-t2">yí</span>
+        <div class="tone-rule-example">一个 yí gè</div>
+      </div>
+      <div class="tone-rule">
+        <span class="py-t1">一 yī</span> before <span class="py-t1">1st</span>/<span class="py-t2">2nd</span>/<span class="py-t3">3rd</span> → <span class="py-t4">yì</span>
+        <div class="tone-rule-example">一只 yì zhī</div>
+      </div>
+    </div>
+    <div class="tone-ref-section">
+      <div class="tone-ref-title">Reading Strategy</div>
+      <div class="tone-tip">Look at the tone mark on the vowel — it draws the pitch shape.</div>
+      <div class="tone-tip">ā flat line · á going up · ǎ dip down · à going down</div>
+      <div class="tone-tip">No mark = light/neutral tone (short, unstressed).</div>
+    </div>
+    <div class="tone-ref-section">
+      <div class="tone-ref-title">Your Reading Level</div>
+      <div class="level-indicator" id="levelIndicator">
+        <div class="level-item active" data-level="1">
+          <span class="level-dot"></span>
+          <div>
+            <strong>Beginner</strong>
+            <span>Pinyin hints on front</span>
+          </div>
+        </div>
+        <div class="level-item" data-level="2">
+          <span class="level-dot"></span>
+          <div>
+            <strong>Intermediate</strong>
+            <span>Characters only, 2-step reveal</span>
+          </div>
+        </div>
+        <div class="level-item" data-level="3">
+          <span class="level-dot"></span>
+          <div>
+            <strong>Advanced</strong>
+            <span>Characters only, single reveal</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-divider"></div>
+
+  <nav class="sidebar-nav" id="sidebarNav">
+    <div class="nav-heading">Vocabulary Sections</div>
+    <!-- Sections rendered by JS -->
+  </nav>
+
+  <div class="sidebar-footer">
+    <button class="sync-btn" id="syncBtn">
+      <span class="sync-icon">⟳</span>
+      <span>Sync Progress</span>
+      <span class="sync-badge sync-off" id="syncBadge">local only</span>
+    </button>
+    <button class="reset-btn" id="resetBtn">Reset Progress</button>
+  </div>
+</aside>
+
+<!-- Sync Modal -->
+<div class="sync-modal hidden" id="syncModal">
+  <div class="sync-modal-backdrop" id="syncClose"></div>
+  <div class="sync-modal-card">
+    <button class="sync-modal-x" id="syncCloseX" aria-label="Close">&times;</button>
+    <div class="sync-modal-header">
+      <span class="sync-modal-icon">⟳</span>
+      <h2>Cross-Device Sync</h2>
+      <p>Sync your progress across devices using a private GitHub Gist.</p>
+    </div>
+    <div class="sync-modal-body">
+      <label class="sync-label" for="syncTokenInput">GitHub Personal Access Token</label>
+      <p class="sync-hint">Create a token at GitHub → Settings → Developer settings → Fine-grained tokens. Grant <strong>Gists: Read and Write</strong> permission only.</p>
+      <input type="password" class="sync-input" id="syncTokenInput" placeholder="github_pat_...">
+      <div class="sync-actions">
+        <button class="sync-connect-btn" id="syncConnect">Connect & Sync</button>
+        <button class="sync-disconnect-btn" id="syncDisconnect">Disconnect</button>
+      </div>
+      <div class="sync-status" id="syncStatus"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Main content -->
+<main class="main" id="main">
+
+  <!-- Study view -->
+  <div class="study-view" id="studyView">
+    <div class="batch-header">
+      <div class="batch-level-badge" id="batchLevelBadge">Level 1 · Beginner</div>
+      <div class="batch-section-label" id="batchSectionLabel">Section 1: Greetings</div>
+      <div class="batch-counter" id="batchCounter">Card 1 of 10</div>
+    </div>
+
+    <div class="card-stage">
+      <div class="card-container" id="cardContainer">
+        <div class="card-inner" id="cardInner">
+          <!-- Front: Chinese characters -->
+          <div class="card-front" id="cardFront">
+            <div class="card-type-badge" id="cardTypeBadge">Word</div>
+            <div class="card-chinese" id="cardChinese">你好</div>
+            <div class="card-hint" id="cardHint">tap to flip</div>
+          </div>
+          <!-- Back: Pinyin + English (two-step reveal) -->
+          <div class="card-back" id="cardBack">
+            <div class="card-type-badge back-badge" id="cardTypeBadgeBack">Word</div>
+            <div class="card-chinese-ref" id="cardChineseRef">你好</div>
+            <div class="card-pinyin" id="cardPinyin"></div>
+            <div class="card-english" id="cardEnglish"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-actions" id="cardActions">
+      <button class="action-btn missed-btn" id="missedBtn" disabled>
+        <span class="action-icon">✗</span>
+        <span>Missed</span>
+      </button>
+      <button class="action-btn gotit-btn" id="gotitBtn" disabled>
+        <span class="action-icon">✓</span>
+        <span>Got it!</span>
+      </button>
+    </div>
+
+    <div class="batch-dots" id="batchDots"></div>
+
+    <div class="keyboard-hints" id="keyboardHints">
+      <span><kbd>Space</kbd> next step</span>
+      <span><kbd>←</kbd> missed</span>
+      <span><kbd>→</kbd> got it</span>
+    </div>
+  </div>
+
+  <!-- Batch complete view -->
+  <div class="complete-view hidden" id="completeView">
+    <div class="complete-card">
+      <div class="complete-seal">完</div>
+      <h2>Batch Complete!</h2>
+      <p class="complete-stats" id="completeStats">You learned 10 new items</p>
+      <div class="complete-items" id="completeItems"></div>
+      <button class="next-batch-btn" id="nextBatchBtn">
+        Continue to Next 10 →
+      </button>
+    </div>
+    <canvas id="confettiCanvas"></canvas>
+  </div>
+
+  <!-- All done view -->
+  <div class="alldone-view hidden" id="allDoneView">
+    <div class="complete-card">
+      <div class="complete-seal gold">成</div>
+      <h2>Mastery Achieved!</h2>
+      <p>You have learned all 660 items across 28 sections.</p>
+      <p class="complete-stats">恭喜你！Gōngxǐ nǐ! Congratulations!</p>
+    </div>
+  </div>
+
+</main>
+
+<script src="data.js?v=7"></script>
+<script src="sync.js?v=7"></script>
+<script src="app.js?v=7"></script>
+</body>
+</html>
