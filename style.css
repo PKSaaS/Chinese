@@ -1430,6 +1430,10 @@ kbd {
   margin-bottom: 6px;
 }
 
+.sync-label-gap {
+  margin-top: 16px;
+}
+
 .sync-hint {
   font-size: 12px;
   color: var(--wash-mid);

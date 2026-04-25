@@ -505,13 +505,16 @@
   function showSyncModal() {
     const modal = document.getElementById('syncModal');
     const statusEl = document.getElementById('syncStatus');
+    const nameInput = document.getElementById('syncNameInput');
+    const tokenInput = document.getElementById('syncTokenInput');
     modal.classList.remove('hidden');
 
-    // Update status display
+    // Pre-fill saved credentials
+    nameInput.value = GistSync.getProfileName();
+    if (GistSync.hasToken()) tokenInput.value = '••••••••••';
+
     if (GistSync.isConfigured()) {
-      statusEl.innerHTML = '<span class="sync-ok">Syncing to Gist ' + GistSync.getGistId().slice(0, 8) + '...</span>';
-    } else if (GistSync.hasToken()) {
-      statusEl.innerHTML = '<span class="sync-pending">Token saved, setting up...</span>';
+      statusEl.innerHTML = '<span class="sync-ok">Synced as "' + GistSync.getProfileName() + '"</span>';
     } else {
       statusEl.textContent = '';
     }
@@ -524,7 +527,7 @@
   function updateSyncBadge() {
     const badge = document.getElementById('syncBadge');
     if (GistSync.isConfigured()) {
-      badge.textContent = 'synced';
+      badge.textContent = GistSync.getProfileName() || 'synced';
       badge.className = 'sync-badge sync-on';
     } else {
       badge.textContent = 'local only';
@@ -533,27 +536,35 @@
   }
 
   async function handleSyncSetup() {
-    const input = document.getElementById('syncTokenInput');
+    const nameInput = document.getElementById('syncNameInput');
+    const tokenInput = document.getElementById('syncTokenInput');
     const statusEl = document.getElementById('syncStatus');
-    const token = input.value.trim();
+    const name = nameInput.value.trim();
+    const token = tokenInput.value.trim();
 
-    if (!token) {
-      statusEl.innerHTML = '<span class="sync-err">Please enter a token</span>';
+    if (!name) {
+      statusEl.innerHTML = '<span class="sync-err">Please enter your name</span>';
       return;
     }
+    if (!token || token === '••••••••••') {
+      if (!GistSync.hasToken()) {
+        statusEl.innerHTML = '<span class="sync-err">Please enter your secret key</span>';
+        return;
+      }
+    } else {
+      GistSync.setCredentials(name, token);
+    }
 
-    GistSync.setToken(token);
-    statusEl.innerHTML = '<span class="sync-pending">Validating token...</span>';
+    statusEl.innerHTML = '<span class="sync-pending">Connecting...</span>';
 
     try {
-      const merged = await GistSync.setup(state);
+      const merged = await GistSync.setup(name, state);
       state = merged;
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 
-      statusEl.innerHTML = '<span class="sync-ok">Connected! Progress synced across devices.</span>';
+      statusEl.innerHTML = '<span class="sync-ok">Connected! Welcome, ' + name + '.</span>';
       updateSyncBadge();
 
-      // Refresh UI with potentially merged state
       renderSidebar();
       updateProgressBar();
       updateLevelIndicator();

@@ -1,5 +1,6 @@
 /* ============================================================
    Gist Sync — Cross-device progress via GitHub Gist
+   Name-based: same name + same key = same progress
    ============================================================ */
 
 const GistSync = (function () {
@@ -7,23 +8,15 @@ const GistSync = (function () {
 
   const TOKEN_KEY = 'moxue_gh_token';
   const GIST_KEY = 'moxue_gist_id';
+  const NAME_KEY = 'moxue_profile_name';
   const GIST_FILENAME = 'moxue_progress.json';
+  const GIST_PREFIX = 'MoXue Sync: ';
   const API = 'https://api.github.com';
 
   let _token = localStorage.getItem(TOKEN_KEY);
-  let _gistId = getGistIdFromHash() || localStorage.getItem(GIST_KEY);
+  let _gistId = localStorage.getItem(GIST_KEY);
+  let _profileName = localStorage.getItem(NAME_KEY);
   let _syncTimer = null;
-  let _onReady = null;
-
-  function getGistIdFromHash() {
-    const match = location.hash.match(/g=([a-f0-9]+)/);
-    return match ? match[1] : null;
-  }
-
-  function setGistIdInHash(id) {
-    const existing = location.hash.replace(/[#&]?g=[a-f0-9]+/, '');
-    location.hash = (existing ? existing + '&' : '') + 'g=' + id;
-  }
 
   function isConfigured() {
     return _token && _gistId;
@@ -33,17 +26,24 @@ const GistSync = (function () {
     return !!_token;
   }
 
-  function setToken(token) {
+  function getProfileName() {
+    return _profileName || '';
+  }
+
+  function setCredentials(name, token) {
+    _profileName = name.trim();
     _token = token.trim();
+    localStorage.setItem(NAME_KEY, _profileName);
     localStorage.setItem(TOKEN_KEY, _token);
   }
 
   function clearConfig() {
     _token = null;
     _gistId = null;
+    _profileName = null;
     localStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem(GIST_KEY);
-    history.replaceState(null, '', location.pathname);
+    localStorage.removeItem(NAME_KEY);
   }
 
   async function apiCall(url, options) {
@@ -57,16 +57,33 @@ const GistSync = (function () {
     });
     if (!resp.ok) {
       const text = await resp.text();
-      throw new Error(`GitHub API ${resp.status}: ${text}`);
+      throw new Error('GitHub API ' + resp.status + ': ' + text);
     }
     return resp.json();
   }
 
-  async function createGist(stateData) {
+  // Search user's gists for one matching the profile name
+  async function findGistByName(name) {
+    const targetDesc = GIST_PREFIX + name;
+    let page = 1;
+    while (page <= 5) {
+      const gists = await apiCall(API + '/gists?per_page=30&page=' + page, { method: 'GET' });
+      if (gists.length === 0) break;
+      for (const g of gists) {
+        if (g.description === targetDesc && g.files[GIST_FILENAME]) {
+          return g.id;
+        }
+      }
+      page++;
+    }
+    return null;
+  }
+
+  async function createGist(name, stateData) {
     const data = await apiCall(API + '/gists', {
       method: 'POST',
       body: JSON.stringify({
-        description: 'MoXue Chinese Learning Progress',
+        description: GIST_PREFIX + name,
         public: false,
         files: {
           [GIST_FILENAME]: { content: JSON.stringify(stateData, null, 2) }
@@ -75,7 +92,6 @@ const GistSync = (function () {
     });
     _gistId = data.id;
     localStorage.setItem(GIST_KEY, _gistId);
-    setGistIdInHash(_gistId);
     return data;
   }
 
@@ -108,7 +124,7 @@ const GistSync = (function () {
     }
   }
 
-  // Merge: take the state with more learned items, keeping the superset of itemStatus
+  // Merge: union of learned items, keep highest progress
   function mergeStates(local, remote) {
     if (!remote) return local;
     if (!local) return remote;
@@ -116,35 +132,31 @@ const GistSync = (function () {
     const localLearned = Object.keys(local.itemStatus || {}).length;
     const remoteLearned = Object.keys(remote.itemStatus || {}).length;
 
-    // Base: whichever has more progress
     const base = remoteLearned > localLearned ? { ...remote } : { ...local };
     const other = remoteLearned > localLearned ? local : remote;
 
-    // Merge itemStatus: union of both (learned items from both devices)
     base.itemStatus = { ...other.itemStatus, ...base.itemStatus };
+    base.stats = { ...base.stats };
     base.stats.totalLearned = Object.keys(base.itemStatus).length;
 
-    // Use the higher batchStart (further along)
     if ((other.currentBatchStart || 0) > (base.currentBatchStart || 0)) {
       base.currentBatchStart = other.currentBatchStart;
       base.currentBatch = other.currentBatch;
     }
 
-    // Keep higher stats
     base.stats.daysStudied = Math.max(base.stats.daysStudied || 0, other.stats.daysStudied || 0);
     base.stats.batchesCompleted = Math.max(base.stats.batchesCompleted || 0, other.stats.batchesCompleted || 0);
 
     return base;
   }
 
-  // Debounced push to gist (2 seconds after last save)
+  // Debounced push (2s after last save)
   function schedulePush(stateData) {
     if (!isConfigured()) return;
     clearTimeout(_syncTimer);
     _syncTimer = setTimeout(() => updateGist(stateData), 2000);
   }
 
-  // Validate token by checking the user endpoint
   async function validateToken() {
     try {
       await apiCall(API + '/user', { method: 'GET' });
@@ -154,24 +166,26 @@ const GistSync = (function () {
     }
   }
 
-  // Setup flow: validate token, create or fetch gist, return merged state
-  async function setup(localState) {
-    if (!_token) throw new Error('No token');
+  // Main setup: validate token, find or create gist by name, merge
+  async function setup(name, localState) {
+    if (!_token) throw new Error('No secret key provided');
 
     const valid = await validateToken();
-    if (!valid) throw new Error('Invalid token');
+    if (!valid) throw new Error('Invalid secret key');
 
-    if (_gistId) {
-      // Existing gist — fetch and merge
+    // Try to find existing gist for this name
+    const existingId = await findGistByName(name);
+
+    if (existingId) {
+      _gistId = existingId;
+      localStorage.setItem(GIST_KEY, _gistId);
       const remote = await fetchGist();
       const merged = mergeStates(localState, remote);
       await updateGist(merged);
-      localStorage.setItem(GIST_KEY, _gistId);
-      setGistIdInHash(_gistId);
       return merged;
     } else {
-      // No gist yet — create one
-      await createGist(localState);
+      // Create new gist
+      await createGist(name, localState);
       return localState;
     }
   }
@@ -179,13 +193,14 @@ const GistSync = (function () {
   return {
     isConfigured,
     hasToken,
-    setToken,
+    getProfileName,
+    setCredentials,
     clearConfig,
     setup,
     fetchGist,
     mergeStates,
     schedulePush,
-    getGistId: () => _gistId,
-    setGistId: (id) => { _gistId = id; localStorage.setItem(GIST_KEY, id); setGistIdInHash(id); }
+    validateToken,
+    getGistId: () => _gistId
   };
 })();
