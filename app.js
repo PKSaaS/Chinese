@@ -506,12 +506,9 @@
     const modal = document.getElementById('syncModal');
     const statusEl = document.getElementById('syncStatus');
     const nameInput = document.getElementById('syncNameInput');
-    const tokenInput = document.getElementById('syncTokenInput');
     modal.classList.remove('hidden');
 
-    // Pre-fill saved credentials
     nameInput.value = GistSync.getProfileName();
-    if (GistSync.hasToken()) tokenInput.value = '••••••••••';
 
     if (GistSync.isConfigured()) {
       statusEl.innerHTML = '<span class="sync-ok">Synced as "' + GistSync.getProfileName() + '"</span>';
@@ -537,22 +534,12 @@
 
   async function handleSyncSetup() {
     const nameInput = document.getElementById('syncNameInput');
-    const tokenInput = document.getElementById('syncTokenInput');
     const statusEl = document.getElementById('syncStatus');
     const name = nameInput.value.trim();
-    const token = tokenInput.value.trim();
 
     if (!name) {
       statusEl.innerHTML = '<span class="sync-err">Please enter your name</span>';
       return;
-    }
-    if (!token || token === '••••••••••') {
-      if (!GistSync.hasToken()) {
-        statusEl.innerHTML = '<span class="sync-err">Please enter your secret key</span>';
-        return;
-      }
-    } else {
-      GistSync.setCredentials(name, token);
     }
 
     statusEl.innerHTML = '<span class="sync-pending">Connecting...</span>';
@@ -664,7 +651,7 @@
       GistSync.clearConfig();
       updateSyncBadge();
       document.getElementById('syncStatus').innerHTML = '<span class="sync-pending">Disconnected. Progress is local only.</span>';
-      document.getElementById('syncTokenInput').value = '';
+      document.getElementById('syncNameInput').value = '';
     });
 
     // Tone reference panel

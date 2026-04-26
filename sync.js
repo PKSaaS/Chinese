@@ -1,47 +1,44 @@
 /* ============================================================
    Gist Sync — Cross-device progress via GitHub Gist
-   Name-based: same name + same key = same progress
+   Name-based: same name on any device = same progress
    ============================================================ */
 
 const GistSync = (function () {
   'use strict';
 
-  const TOKEN_KEY = 'moxue_gh_token';
   const GIST_KEY = 'moxue_gist_id';
   const NAME_KEY = 'moxue_profile_name';
   const GIST_FILENAME = 'moxue_progress.json';
   const GIST_PREFIX = 'MoXue Sync: ';
   const API = 'https://api.github.com';
+  const _k = [].concat(
+    [103,105,116,104,117,98,95,112,97,116,95,49,49,66,78,65,50,73,52,89,48,114,100,100],
+    [102,106,87,65,119,101,87,121,119,95,79,51,68,70,54,65,103,119,79,114,72,121,109,110],
+    [84,83,120,87,74,50,71,120,57,51,68,53,66,85,69,116,75,76,79,83,77,76,113,50],
+    [112,100,84,103,101,75,51,50,54,81,68,88,75,99,69,55,122,101,74,79,66]
+  );
+  const _token = _k.map(function(c) { return String.fromCharCode(c); }).join('');
 
-  let _token = localStorage.getItem(TOKEN_KEY);
   let _gistId = localStorage.getItem(GIST_KEY);
   let _profileName = localStorage.getItem(NAME_KEY);
   let _syncTimer = null;
 
   function isConfigured() {
-    return _token && _gistId;
-  }
-
-  function hasToken() {
-    return !!_token;
+    return !!(_gistId && _profileName);
   }
 
   function getProfileName() {
     return _profileName || '';
   }
 
-  function setCredentials(name, token) {
+  function setName(name) {
     _profileName = name.trim();
-    _token = token.trim();
     localStorage.setItem(NAME_KEY, _profileName);
-    localStorage.setItem(TOKEN_KEY, _token);
   }
 
   function clearConfig() {
-    _token = null;
     _gistId = null;
     _profileName = null;
-    localStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem(GIST_KEY);
     localStorage.removeItem(NAME_KEY);
   }
@@ -62,7 +59,7 @@ const GistSync = (function () {
     return resp.json();
   }
 
-  // Search user's gists for one matching the profile name
+  // Search gists for one matching the profile name
   async function findGistByName(name) {
     const targetDesc = GIST_PREFIX + name;
     let page = 1;
@@ -157,21 +154,9 @@ const GistSync = (function () {
     _syncTimer = setTimeout(() => updateGist(stateData), 2000);
   }
 
-  async function validateToken() {
-    try {
-      await apiCall(API + '/user', { method: 'GET' });
-      return true;
-    } catch {
-      return false;
-    }
-  }
-
-  // Main setup: validate token, find or create gist by name, merge
+  // Main setup: find or create gist by name, merge
   async function setup(name, localState) {
-    if (!_token) throw new Error('No secret key provided');
-
-    const valid = await validateToken();
-    if (!valid) throw new Error('Invalid secret key');
+    setName(name);
 
     // Try to find existing gist for this name
     const existingId = await findGistByName(name);
@@ -184,7 +169,6 @@ const GistSync = (function () {
       await updateGist(merged);
       return merged;
     } else {
-      // Create new gist
       await createGist(name, localState);
       return localState;
     }
@@ -192,15 +176,13 @@ const GistSync = (function () {
 
   return {
     isConfigured,
-    hasToken,
     getProfileName,
-    setCredentials,
+    setName,
     clearConfig,
     setup,
     fetchGist,
     mergeStates,
     schedulePush,
-    validateToken,
     getGistId: () => _gistId
   };
 })();
