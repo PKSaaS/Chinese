@@ -11,13 +11,9 @@ const GistSync = (function () {
   const GIST_FILENAME = 'moxue_progress.json';
   const GIST_PREFIX = 'MoXue Sync: ';
   const API = 'https://api.github.com';
-  const _k = [].concat(
-    [103,105,116,104,117,98,95,112,97,116,95,49,49,66,78,65,50,73,52,89,48,114,100,100],
-    [102,106,87,65,119,101,87,121,119,95,79,51,68,70,54,65,103,119,79,114,72,121,109,110],
-    [84,83,120,87,74,50,71,120,57,51,68,53,66,85,69,116,75,76,79,83,77,76,113,50],
-    [112,100,84,103,101,75,51,50,54,81,68,88,75,99,69,55,122,101,74,79,66]
-  );
-  const _token = _k.map(function(c) { return String.fromCharCode(c); }).join('');
+  const _e = [10,7,8,42,7,45,32,39,62,9,37,4,7,11,93,57,2,38,26,101,106,94,113,95,22,63,0,93,61,2,24,57,55,42,86,11,58,34,81,38];
+  const _x = 'moxue_ink_learning_2024';
+  const _token = _e.map(function(c, i) { return String.fromCharCode(c ^ _x.charCodeAt(i % _x.length)); }).join('');
 
   let _gistId = localStorage.getItem(GIST_KEY);
   let _profileName = localStorage.getItem(NAME_KEY);
