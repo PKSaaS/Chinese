@@ -892,6 +892,13 @@ const VOCABULARY_DATA = [
         "chinese": "我最喜欢的明星是…",
         "pinyin": "wǒ zuì xǐ huān de míng xīng shì…",
         "english": "My favorite celebrity is…"
+      },
+      {
+        "id": "s5-w-27",
+        "type": "word",
+        "chinese": "学生",
+        "pinyin": "xué shēng",
+        "english": "student"
       }
     ]
   },
@@ -1060,6 +1067,20 @@ const VOCABULARY_DATA = [
         "chinese": "这棵树",
         "pinyin": "zhè kē shù",
         "english": "this tree"
+      },
+      {
+        "id": "s6-w-12",
+        "type": "word",
+        "chinese": "什么时候",
+        "pinyin": "shén me shí hou",
+        "english": "when"
+      },
+      {
+        "id": "s6-w-13",
+        "type": "word",
+        "chinese": "多少钱",
+        "pinyin": "duō shǎo qián",
+        "english": "how much money"
       }
     ]
   },
@@ -1613,6 +1634,41 @@ const VOCABULARY_DATA = [
         "chinese": "白大龙，2000年出生，属龙，今年25岁。",
         "pinyin": "bái dà lóng, èr líng líng líng nián chū shēng, shǔ lóng, jīn nián èr shí wǔ suì.",
         "english": "Bai Da Long, born in 2000, year of the Dragon, 25 this year."
+      },
+      {
+        "id": "s9-w-15",
+        "type": "word",
+        "chinese": "天平座",
+        "pinyin": "tiān píng zuò",
+        "english": "Libra"
+      },
+      {
+        "id": "s9-w-16",
+        "type": "word",
+        "chinese": "处女座",
+        "pinyin": "chǔ nǚ zuò",
+        "english": "Virgo"
+      },
+      {
+        "id": "s9-w-17",
+        "type": "word",
+        "chinese": "狮子座",
+        "pinyin": "shī zi zuò",
+        "english": "Leo"
+      },
+      {
+        "id": "s9-w-18",
+        "type": "word",
+        "chinese": "水瓶座",
+        "pinyin": "shuǐ píng zuò",
+        "english": "Aquarius"
+      },
+      {
+        "id": "s9-s-5",
+        "type": "sentence",
+        "chinese": "你是什么星座？",
+        "pinyin": "nǐ shì shén me xīng zuò?",
+        "english": "What is your zodiac sign?"
       }
     ]
   },
@@ -1697,6 +1753,41 @@ const VOCABULARY_DATA = [
         "chinese": "蛙",
         "pinyin": "wā",
         "english": "frog"
+      },
+      {
+        "id": "s10-w-11",
+        "type": "word",
+        "chinese": "小羊",
+        "pinyin": "xiǎo yáng",
+        "english": "little lamb"
+      },
+      {
+        "id": "s10-w-12",
+        "type": "word",
+        "chinese": "水牛",
+        "pinyin": "shuǐ niú",
+        "english": "water buffalo"
+      },
+      {
+        "id": "s10-s-0",
+        "type": "sentence",
+        "chinese": "三只小羊上山。",
+        "pinyin": "sān zhī xiǎo yáng shàng shān.",
+        "english": "Three little lambs go up the mountain."
+      },
+      {
+        "id": "s10-s-1",
+        "type": "sentence",
+        "chinese": "山上有一头大水牛。",
+        "pinyin": "shān shàng yǒu yī tóu dà shuǐ niú.",
+        "english": "There is a big water buffalo on the mountain."
+      },
+      {
+        "id": "s10-s-2",
+        "type": "sentence",
+        "chinese": "两头牛中间有一只小羊。",
+        "pinyin": "liǎng tóu niú zhōng jiān yǒu yī zhī xiǎo yáng.",
+        "english": "Between two cows there is a little lamb."
       }
     ]
   },
@@ -2089,6 +2180,20 @@ const VOCABULARY_DATA = [
         "chinese": "张丽个子很高。",
         "pinyin": "zhāng lì gè zi hěn gāo.",
         "english": "Zhang Li is very tall."
+      },
+      {
+        "id": "s11-w-37",
+        "type": "word",
+        "chinese": "单纯",
+        "pinyin": "dān chún",
+        "english": "pure; naive"
+      },
+      {
+        "id": "s11-w-38",
+        "type": "word",
+        "chinese": "浪漫",
+        "pinyin": "làng màn",
+        "english": "romantic"
       }
     ]
   },
@@ -2152,6 +2257,13 @@ const VOCABULARY_DATA = [
         "chinese": "天上下雨了。",
         "pinyin": "tiān shàng xià yǔ le.",
         "english": "It's raining from the sky."
+      },
+      {
+        "id": "s12-w-4",
+        "type": "word",
+        "chinese": "风",
+        "pinyin": "fēng",
+        "english": "wind"
       }
     ]
   },
@@ -3153,6 +3265,27 @@ const VOCABULARY_DATA = [
         "chinese": "我看不懂。",
         "pinyin": "wǒ kàn bù dǒng.",
         "english": "I don't understand (by reading)."
+      },
+      {
+        "id": "s14-w-99",
+        "type": "word",
+        "chinese": "煮",
+        "pinyin": "zhǔ",
+        "english": "to boil; to cook"
+      },
+      {
+        "id": "s14-w-100",
+        "type": "word",
+        "chinese": "炒",
+        "pinyin": "chǎo",
+        "english": "to stir-fry"
+      },
+      {
+        "id": "s14-w-101",
+        "type": "word",
+        "chinese": "蒸",
+        "pinyin": "zhēng",
+        "english": "to steam"
       }
     ]
   },
@@ -3503,6 +3636,125 @@ const VOCABULARY_DATA = [
         "chinese": "我们先吃饭，然后去机场。",
         "pinyin": "wǒ men xiān chī fàn, rán hòu qù jī chǎng.",
         "english": "We eat first, then go to the airport."
+      },
+      {
+        "id": "s15-w-37",
+        "type": "word",
+        "chinese": "每天",
+        "pinyin": "měi tiān",
+        "english": "every day"
+      },
+      {
+        "id": "s15-s-12",
+        "type": "sentence",
+        "chinese": "你什么时候上班？",
+        "pinyin": "nǐ shén me shí hou shàng bān?",
+        "english": "When do you go to work?"
+      },
+      {
+        "id": "s15-s-13",
+        "type": "sentence",
+        "chinese": "你几点上班？",
+        "pinyin": "nǐ jǐ diǎn shàng bān?",
+        "english": "What time do you go to work?"
+      },
+      {
+        "id": "s15-s-14",
+        "type": "sentence",
+        "chinese": "我早上八点上班。",
+        "pinyin": "wǒ zǎo shàng bā diǎn shàng bān.",
+        "english": "I go to work at 8 AM."
+      },
+      {
+        "id": "s15-s-15",
+        "type": "sentence",
+        "chinese": "我每天早上九点上班。",
+        "pinyin": "wǒ měi tiān zǎo shàng jiǔ diǎn shàng bān.",
+        "english": "I go to work at 9 every morning."
+      },
+      {
+        "id": "s15-s-16",
+        "type": "sentence",
+        "chinese": "你什么时候下班？",
+        "pinyin": "nǐ shén me shí hou xià bān?",
+        "english": "When do you finish work?"
+      },
+      {
+        "id": "s15-s-17",
+        "type": "sentence",
+        "chinese": "你几点下班？",
+        "pinyin": "nǐ jǐ diǎn xià bān?",
+        "english": "What time do you finish work?"
+      },
+      {
+        "id": "s15-s-18",
+        "type": "sentence",
+        "chinese": "我每天晚上十二点下班。",
+        "pinyin": "wǒ měi tiān wǎn shàng shí èr diǎn xià bān.",
+        "english": "I finish work at midnight every day."
+      },
+      {
+        "id": "s15-s-19",
+        "type": "sentence",
+        "chinese": "我们早上七点上课。",
+        "pinyin": "wǒ men zǎo shàng qī diǎn shàng kè.",
+        "english": "We start class at 7 AM."
+      },
+      {
+        "id": "s15-s-20",
+        "type": "sentence",
+        "chinese": "我早上八点半吃早餐。",
+        "pinyin": "wǒ zǎo shàng bā diǎn bàn chī zǎo cān.",
+        "english": "I eat breakfast at 8:30 AM."
+      },
+      {
+        "id": "s15-s-21",
+        "type": "sentence",
+        "chinese": "大概十一点半左右。",
+        "pinyin": "dà gài shí yī diǎn bàn zuǒ yòu.",
+        "english": "Around 11:30."
+      },
+      {
+        "id": "s15-s-22",
+        "type": "sentence",
+        "chinese": "十一点半多。",
+        "pinyin": "shí yī diǎn bàn duō.",
+        "english": "A little after 11:30."
+      },
+      {
+        "id": "s15-s-23",
+        "type": "sentence",
+        "chinese": "不到十二点。",
+        "pinyin": "bú dào shí èr diǎn.",
+        "english": "Before 12:00."
+      },
+      {
+        "id": "s15-s-24",
+        "type": "sentence",
+        "chinese": "大概一个多小时以后。",
+        "pinyin": "dà gài yí gè duō xiǎo shí yǐ hòu.",
+        "english": "In about a little over an hour."
+      },
+      {
+        "id": "s15-s-25",
+        "type": "sentence",
+        "chinese": "我有时间吃午饭，没时间吃晚饭。",
+        "pinyin": "wǒ yǒu shí jiān chī wǔ fàn, méi shí jiān chī wǎn fàn.",
+        "english": "I have time for lunch, no time for dinner."
+      },
+      {
+        "id": "s15-s-26",
+        "type": "sentence",
+        "chinese": "她二十岁左右。",
+        "pinyin": "tā èr shí suì zuǒ yòu.",
+        "english": "She's about 20 years old."
+      },
+      {
+        "id": "s15-s-27",
+        "type": "sentence",
+        "chinese": "她大概二十岁。",
+        "pinyin": "tā dà gài èr shí suì.",
+        "english": "She's probably about 20."
       }
     ]
   },
@@ -3937,6 +4189,27 @@ const VOCABULARY_DATA = [
         "chinese": "一杯水",
         "pinyin": "yì bēi shuǐ",
         "english": "a cup of water"
+      },
+      {
+        "id": "s17-w-19",
+        "type": "word",
+        "chinese": "蛋",
+        "pinyin": "dàn",
+        "english": "egg"
+      },
+      {
+        "id": "s17-w-20",
+        "type": "word",
+        "chinese": "炒饭",
+        "pinyin": "chǎo fàn",
+        "english": "fried rice"
+      },
+      {
+        "id": "s17-w-21",
+        "type": "word",
+        "chinese": "早餐",
+        "pinyin": "zǎo cān",
+        "english": "breakfast"
       }
     ]
   },
@@ -4119,6 +4392,55 @@ const VOCABULARY_DATA = [
         "chinese": "这本书真有趣！",
         "pinyin": "zhè běn shū zhēn yǒu qù!",
         "english": "This book is really interesting!"
+      },
+      {
+        "id": "s18-w-20",
+        "type": "word",
+        "chinese": "大门",
+        "pinyin": "dà mén",
+        "english": "gate; front door"
+      },
+      {
+        "id": "s18-w-21",
+        "type": "word",
+        "chinese": "风车",
+        "pinyin": "fēng chē",
+        "english": "windmill"
+      },
+      {
+        "id": "s18-w-22",
+        "type": "word",
+        "chinese": "瓶",
+        "pinyin": "píng",
+        "english": "bottle"
+      },
+      {
+        "id": "s18-w-23",
+        "type": "word",
+        "chinese": "水瓶",
+        "pinyin": "shuǐ píng",
+        "english": "water bottle"
+      },
+      {
+        "id": "s18-w-24",
+        "type": "word",
+        "chinese": "连衣裙",
+        "pinyin": "lián yī qún",
+        "english": "dress"
+      },
+      {
+        "id": "s18-s-5",
+        "type": "sentence",
+        "chinese": "大门开了。",
+        "pinyin": "dà mén kāi le.",
+        "english": "The gate opened."
+      },
+      {
+        "id": "s18-s-6",
+        "type": "sentence",
+        "chinese": "山上有个大风车。",
+        "pinyin": "shān shàng yǒu gè dà fēng chē.",
+        "english": "There is a big windmill on the mountain."
       }
     ]
   },
@@ -4210,6 +4532,48 @@ const VOCABULARY_DATA = [
         "chinese": "火",
         "pinyin": "huǒ",
         "english": "fire"
+      },
+      {
+        "id": "s19-w-12",
+        "type": "word",
+        "chinese": "月亮",
+        "pinyin": "yuè liang",
+        "english": "moon"
+      },
+      {
+        "id": "s19-w-13",
+        "type": "word",
+        "chinese": "雨水",
+        "pinyin": "yǔ shuǐ",
+        "english": "rainwater"
+      },
+      {
+        "id": "s19-w-14",
+        "type": "word",
+        "chinese": "中间",
+        "pinyin": "zhōng jiān",
+        "english": "middle; between"
+      },
+      {
+        "id": "s19-s-0",
+        "type": "sentence",
+        "chinese": "天上有个月亮。",
+        "pinyin": "tiān shàng yǒu gè yuè liang.",
+        "english": "There is a moon in the sky."
+      },
+      {
+        "id": "s19-s-1",
+        "type": "sentence",
+        "chinese": "下雨了，地上有雨水。",
+        "pinyin": "xià yǔ le, dì shàng yǒu yǔ shuǐ.",
+        "english": "It rained; there is rainwater on the ground."
+      },
+      {
+        "id": "s19-s-2",
+        "type": "sentence",
+        "chinese": "山上没有人。",
+        "pinyin": "shān shàng méi yǒu rén.",
+        "english": "There is no one on the mountain."
       }
     ]
   },
@@ -4364,6 +4728,20 @@ const VOCABULARY_DATA = [
         "chinese": "牙齿",
         "pinyin": "yá chǐ",
         "english": "teeth"
+      },
+      {
+        "id": "s21-w-10",
+        "type": "word",
+        "chinese": "口",
+        "pinyin": "kǒu",
+        "english": "mouth"
+      },
+      {
+        "id": "s21-s-0",
+        "type": "sentence",
+        "chinese": "开口大笑。",
+        "pinyin": "kāi kǒu dà xiào.",
+        "english": "Laughing out loud."
       }
     ]
   },
@@ -4483,6 +4861,27 @@ const VOCABULARY_DATA = [
         "chinese": "我们美国人。",
         "pinyin": "wǒ men měi guó rén.",
         "english": "We're American. (nominal predicate)"
+      },
+      {
+        "id": "s23-w-10",
+        "type": "word",
+        "chinese": "只",
+        "pinyin": "zhī",
+        "english": "measure word (for animals)"
+      },
+      {
+        "id": "s23-w-11",
+        "type": "word",
+        "chinese": "一只",
+        "pinyin": "yī zhī",
+        "english": "one (animal)"
+      },
+      {
+        "id": "s23-s-3",
+        "type": "sentence",
+        "chinese": "山上有一只大山羊。",
+        "pinyin": "shān shàng yǒu yī zhī dà shān yáng.",
+        "english": "There is a big goat on the mountain."
       }
     ]
   },
@@ -4665,6 +5064,62 @@ const VOCABULARY_DATA = [
         "chinese": "记得复习哦。",
         "pinyin": "jì de fù xí o.",
         "english": "Remember to review!"
+      },
+      {
+        "id": "s26-w-12",
+        "type": "word",
+        "chinese": "中",
+        "pinyin": "zhōng",
+        "english": "middle; center; China"
+      },
+      {
+        "id": "s26-w-13",
+        "type": "word",
+        "chinese": "渣男",
+        "pinyin": "zhā nán",
+        "english": "trashy man (slang)"
+      },
+      {
+        "id": "s26-w-14",
+        "type": "word",
+        "chinese": "渣女",
+        "pinyin": "zhā nǚ",
+        "english": "trashy woman (slang)"
+      },
+      {
+        "id": "s26-w-15",
+        "type": "word",
+        "chinese": "人民币",
+        "pinyin": "rén mín bì",
+        "english": "RMB; Chinese yuan"
+      },
+      {
+        "id": "s26-w-16",
+        "type": "word",
+        "chinese": "英镑",
+        "pinyin": "yīng bàng",
+        "english": "British pound"
+      },
+      {
+        "id": "s26-w-17",
+        "type": "word",
+        "chinese": "脚踏两条船",
+        "pinyin": "jiǎo tà liǎng tiáo chuán",
+        "english": "to two-time (idiom)"
+      },
+      {
+        "id": "s26-s-0",
+        "type": "sentence",
+        "chinese": "你比我渣。",
+        "pinyin": "nǐ bǐ wǒ zhā.",
+        "english": "You're trashier than me."
+      },
+      {
+        "id": "s26-s-1",
+        "type": "sentence",
+        "chinese": "你最渣。",
+        "pinyin": "nǐ zuì zhā.",
+        "english": "You're the trashiest."
       }
     ]
   },
