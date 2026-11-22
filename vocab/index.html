@@ -1683,6 +1683,17 @@ html.dark [style*=";color:#2980b9"] { color: #6ab0e8 !important; }
 html.dark [style^="color:#666"],
 html.dark [style*=" color:#666"],
 html.dark [style*=";color:#666"] { color: #9aa1ad !important; }
+
+  /* Reading tab: low-memory mode for iPhone Safari (Nov 22) — flat flip, one deck at a time */
+  #tab-reading .flip-card, #tab-reading .char-flip { perspective: none; }
+  #tab-reading .flip-inner, #tab-reading .char-flip-inner { transform: none !important; transform-style: flat; transition: none; }
+  #tab-reading .flip-front, #tab-reading .flip-back, #tab-reading .char-front, #tab-reading .char-back { transform: none; backface-visibility: visible; -webkit-backface-visibility: visible; }
+  #tab-reading .flip-back, #tab-reading .char-back { display: none; }
+  #tab-reading .flip-card.flipped .flip-front, #tab-reading .char-flip.flipped .char-front { display: none; }
+  #tab-reading .flip-card.flipped .flip-back, #tab-reading .char-flip.flipped .char-back { display: flex; }
+  .rd-hidden { display: none !important; }
+  .rd-nav a.rd-on { background: #f39c12; color: #2c3e50; }
+  .rd-old-btn { display:block; margin: 30px auto 10px; padding: 10px 18px; border-radius: 999px; border: none; background:#2c3e50; color:#f39c12; font-weight:600; font-size:15px; cursor:pointer; }
 </style>
 <script>try{var t=localStorage.getItem("cmv-theme");if(t==="dark"||(!t&&window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches))document.documentElement.classList.add("dark");}catch(e){}</script>
 </head>
@@ -4436,9 +4447,9 @@ Before other tones &rarr; <strong>bù</strong>: &nbsp; <span class="rule-zh">不
 <!-- ===== FROM CLASS: hanzi review from Lesson 22 on (shown FIRST) ===== -->
 <div class="reading-title">
 Hanzi Review — Lesson 22 and up
-<span>Every hanzi word from Lessons 22–29. Say it out loud, then tap to check — the back shows a sentence from class.</span>
+<span>Pick a lesson below (one deck at a time). Say each word out loud, then tap to check — the back shows a sentence from class.</span>
 </div>
-<div class="rd-nav"><a href="#rd-l22" onclick="event.preventDefault();document.getElementById('rd-l22').scrollIntoView({behavior:'smooth'})">L22</a><a href="#rd-l23" onclick="event.preventDefault();document.getElementById('rd-l23').scrollIntoView({behavior:'smooth'})">L23</a><a href="#rd-l24" onclick="event.preventDefault();document.getElementById('rd-l24').scrollIntoView({behavior:'smooth'})">L24</a><a href="#rd-l25" onclick="event.preventDefault();document.getElementById('rd-l25').scrollIntoView({behavior:'smooth'})">L25</a><a href="#rd-l26" onclick="event.preventDefault();document.getElementById('rd-l26').scrollIntoView({behavior:'smooth'})">L26</a><a href="#rd-l27" onclick="event.preventDefault();document.getElementById('rd-l27').scrollIntoView({behavior:'smooth'})">L27</a><a href="#rd-l28" onclick="event.preventDefault();document.getElementById('rd-l28').scrollIntoView({behavior:'smooth'})">L28</a><a href="#rd-l29" onclick="event.preventDefault();document.getElementById('rd-l29').scrollIntoView({behavior:'smooth'})">L29</a></div>
+<div class="rd-nav"><a href="#rd-l22" onclick="event.preventDefault();showRdDeck('rd-l22')">L22</a><a href="#rd-l23" onclick="event.preventDefault();showRdDeck('rd-l23')">L23</a><a href="#rd-l24" onclick="event.preventDefault();showRdDeck('rd-l24')">L24</a><a href="#rd-l25" onclick="event.preventDefault();showRdDeck('rd-l25')">L25</a><a href="#rd-l26" onclick="event.preventDefault();showRdDeck('rd-l26')">L26</a><a href="#rd-l27" onclick="event.preventDefault();showRdDeck('rd-l27')">L27</a><a href="#rd-l28" onclick="event.preventDefault();showRdDeck('rd-l28')">L28</a><a href="#rd-l29" onclick="event.preventDefault();showRdDeck('rd-l29')">L29</a></div>
 <h3 class="rd-deck-title" id="rd-l22">Lesson 22 — Deck #1 · first characters</h3>
 <div class="hanzi-cards rd-cards">
 <div class="flip-card has-sent" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front"><div class="hanzi-front-zh">你</div><div class="hanzi-front-hint">tap to flip</div></div><div class="flip-back"><div class="hanzi-back-py">nǐ</div><div class="hanzi-back-en">you</div><div class="rd-sent"><div class="rd-sent-zh">你喝咖啡吗？</div><div class="rd-sent-py">nǐ hē kāfēi ma?</div><div class="rd-sent-en">Do you drink coffee?</div></div></div></div></div>
@@ -4658,7 +4669,8 @@ Earlier Characters — before Lesson 22
 <span>Tap a card to reveal pinyin, meaning & compound words</span>
 </div>
 
-<div class="char-grid">
+<button class="rd-old-btn" onclick="var g=document.getElementById('rdOldGrid');g.classList.toggle('rd-hidden');this.textContent=g.classList.contains('rd-hidden')?'Show the 43 earlier characters':'Hide the earlier characters'">Show the 43 earlier characters</button>
+<div class="char-grid rd-hidden" id="rdOldGrid">
 
 <div class="char-flip" onclick="this.classList.toggle('flipped')">
 <div class="char-flip-inner">
@@ -12947,5 +12959,18 @@ document.addEventListener('keydown', function(e) {
 });
 </script>
 
+
+<script>
+/* Reading tab: show one hanzi deck at a time (iPhone memory) */
+function showRdDeck(id){
+  document.querySelectorAll('#tab-reading .rd-deck-title').forEach(function(h){
+    var on = h.id === id, d = h.nextElementSibling;
+    h.classList.toggle('rd-hidden', !on);
+    if (d && d.classList.contains('rd-cards')) d.classList.toggle('rd-hidden', !on);
+  });
+  document.querySelectorAll('#tab-reading .rd-nav a').forEach(function(a){ a.classList.toggle('rd-on', a.getAttribute('href') === '#' + id); });
+}
+(function(){ var t = document.querySelectorAll('#tab-reading .rd-deck-title'); if (t.length) showRdDeck(t[t.length-1].id); })();
+</script>
 </body>
 </html>
