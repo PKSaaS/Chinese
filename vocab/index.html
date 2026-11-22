@@ -4449,7 +4449,7 @@ Before other tones &rarr; <strong>bù</strong>: &nbsp; <span class="rule-zh">不
 Hanzi Review — Lesson 22 and up
 <span>Pick a lesson below (one deck at a time). Say each word out loud, then tap to check — the back shows a sentence from class.</span>
 </div>
-<div class="rd-nav"><a href="#rd-l22" onclick="event.preventDefault();showRdDeck('rd-l22')">L22</a><a href="#rd-l23" onclick="event.preventDefault();showRdDeck('rd-l23')">L23</a><a href="#rd-l24" onclick="event.preventDefault();showRdDeck('rd-l24')">L24</a><a href="#rd-l25" onclick="event.preventDefault();showRdDeck('rd-l25')">L25</a><a href="#rd-l26" onclick="event.preventDefault();showRdDeck('rd-l26')">L26</a><a href="#rd-l27" onclick="event.preventDefault();showRdDeck('rd-l27')">L27</a><a href="#rd-l28" onclick="event.preventDefault();showRdDeck('rd-l28')">L28</a><a href="#rd-l29" onclick="event.preventDefault();showRdDeck('rd-l29')">L29</a></div>
+<div class="rd-nav"><a href="#rdOld" onclick="event.preventDefault();showRdDeck('rdOld')">Before L22</a><a href="#rd-l22" onclick="event.preventDefault();showRdDeck('rd-l22')">L22</a><a href="#rd-l23" onclick="event.preventDefault();showRdDeck('rd-l23')">L23</a><a href="#rd-l24" onclick="event.preventDefault();showRdDeck('rd-l24')">L24</a><a href="#rd-l25" onclick="event.preventDefault();showRdDeck('rd-l25')">L25</a><a href="#rd-l26" onclick="event.preventDefault();showRdDeck('rd-l26')">L26</a><a href="#rd-l27" onclick="event.preventDefault();showRdDeck('rd-l27')">L27</a><a href="#rd-l28" onclick="event.preventDefault();showRdDeck('rd-l28')">L28</a><a href="#rd-l29" onclick="event.preventDefault();showRdDeck('rd-l29')">L29</a></div>
 <h3 class="rd-deck-title" id="rd-l22">Lesson 22 — Deck #1 · first characters</h3>
 <div class="hanzi-cards rd-cards">
 <div class="flip-card has-sent" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front"><div class="hanzi-front-zh">你</div><div class="hanzi-front-hint">tap to flip</div></div><div class="flip-back"><div class="hanzi-back-py">nǐ</div><div class="hanzi-back-en">you</div><div class="rd-sent"><div class="rd-sent-zh">你喝咖啡吗？</div><div class="rd-sent-py">nǐ hē kāfēi ma?</div><div class="rd-sent-en">Do you drink coffee?</div></div></div></div></div>
@@ -4664,12 +4664,11 @@ Hanzi Review — Lesson 22 and up
 <div class="flip-card has-sent" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front"><div class="hanzi-front-zh">爱</div><div class="hanzi-front-hint">tap to flip</div></div><div class="flip-back"><div class="hanzi-back-py">ài</div><div class="hanzi-back-en">to love</div><div class="rd-sent"><div class="rd-sent-zh">妹妹非常爱绿色的裙子。</div><div class="rd-sent-py">mèimei fēicháng ài lǜsè de qúnzi</div><div class="rd-sent-en">My younger sister really loves green skirts.</div></div></div></div></div>
 </div>
 
-<div class="reading-title" style="margin-top:40px;">
+<div class="reading-title rd-hidden" id="rdOldTitle" style="margin-top:20px;">
 Earlier Characters — before Lesson 22
 <span>Tap a card to reveal pinyin, meaning & compound words</span>
 </div>
 
-<button class="rd-old-btn" onclick="var g=document.getElementById('rdOldGrid');g.classList.toggle('rd-hidden');this.textContent=g.classList.contains('rd-hidden')?'Show the 43 earlier characters':'Hide the earlier characters'">Show the 43 earlier characters</button>
 <div class="char-grid rd-hidden" id="rdOldGrid">
 
 <div class="char-flip" onclick="this.classList.toggle('flipped')">
@@ -12968,6 +12967,8 @@ function showRdDeck(id){
     h.classList.toggle('rd-hidden', !on);
     if (d && d.classList.contains('rd-cards')) d.classList.toggle('rd-hidden', !on);
   });
+  var old = id === 'rdOld';
+  ['rdOldGrid','rdOldTitle'].forEach(function(x){ var e=document.getElementById(x); if (e) e.classList.toggle('rd-hidden', !old); });
   document.querySelectorAll('#tab-reading .rd-nav a').forEach(function(a){ a.classList.toggle('rd-on', a.getAttribute('href') === '#' + id); });
 }
 (function(){ var t = document.querySelectorAll('#tab-reading .rd-deck-title'); if (t.length) showRdDeck(t[t.length-1].id); })();
