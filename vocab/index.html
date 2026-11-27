@@ -1701,6 +1701,9 @@ html.dark [style*=";color:#666"] { color: #9aa1ad !important; }
   .lesson-nav a.ln-next { text-align:right; margin-left:auto; }
   html.dark .lesson-nav { border-top-color:#444; }
   html.dark .lesson-nav a { background:#34495e; }
+
+  .tab-bar .tab-search.active { background:#2c3e50; border-color:#2c3e50; box-shadow:0 -2px 8px rgba(0,0,0,0.15); }
+  html.dark .tab-bar .tab-search.active { background:#34495e; border-color:#f5b041; }
 </style>
 <script>try{var t=localStorage.getItem("cmv-theme");if(t==="dark"||(!t&&window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches))document.documentElement.classList.add("dark");}catch(e){}</script>
 </head>
@@ -1722,9 +1725,8 @@ syncThemeIcon();
 <button onclick="switchTab('timeline', this)">Timeline</button>
 <button onclick="switchTab('questions', this)">Questions</button>
 <button onclick="switchTab('tones', this)">Tones</button>
-<span class="tab-pair"><button onclick="switchTab('reading', this)">Reading</button><button class="tab-search" onclick="switchTab('listening', this)" title="Listening — Valerie's voice messages" aria-label="Listening">🎧</button></span>
 <button onclick="switchTab('conversations', this)">Conversations</button>
-<span class="tab-pair"><button onclick="switchTab('quiz', this)">Quiz</button><button class="tab-search" onclick="openSearch()" title="Search words &amp; sentences">🔍</button></span>
+<span class="tab-pair"><button onclick="switchTab('quiz', this)">Quiz</button><button class="tab-search" onclick="switchTab('reading', this)" title="Reading — hanzi decks" aria-label="Reading">📖</button><button class="tab-search" onclick="switchTab('listening', this)" title="Listening — Valerie's voice messages" aria-label="Listening">🎧</button><button class="tab-search" onclick="openSearch()" title="Search words &amp; sentences">🔍</button></span>
 </div>
 
 <!-- ============ SEARCH OVERLAY ============ -->
